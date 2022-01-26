@@ -141,6 +141,7 @@ export default class ReplyContainer extends Modal {
                         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                             <View style={styles.commentInputBox} flexDirection='row' justifyContent='space-between'>
                                     <MentionInput
+                                        style={{ width: 232 }}
                                         inputRef={ref => { this._inputElement = ref }}
                                         value={this.state.text}
                                         onChange={this.onChangeText}

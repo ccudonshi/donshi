@@ -4,7 +4,7 @@ import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-ha
 import CommentItem from '../component/CommentItem'
 import AppHelper from '../helper/AppDBHelper'
 import Moment from 'moment';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Menu from './Menu';
 import CommentContainer from './CommentContainer'
 import { getCurrentUserASync } from '../helper/helper'
@@ -95,19 +95,17 @@ export default class PostItem extends Component {
 
                         <View style={{ flexDirection: 'row', alignSelf: 'center', marginBottom: 15 }}>
                             <Text style={styles.theme}>{this.props.post.getTopicName()}</Text>
-                            {((this.props.post.getAuthor().getId() === this.state.userId) || (this.state.role === 0))
-                                &&
+                            {((this.props.post.getAuthor().getId() === this.state.userId) || (this.state.role === 0)) && (
                                 <>
                                     <Menu
                                         editPost={this.props.post}
                                         modalVisible={this.state.modalVisible}
                                         setModalVisible={this.setModalVisible}></Menu>
                                     <TouchableOpacity onPress={() => this.setModalVisible(true)}>
-                                        <Ionicons style={styles.iconStyle} name='md-more' size={24}></Ionicons>
+                                        <MaterialCommunityIcons style={styles.iconStyle} name='dots-vertical' size={24}></MaterialCommunityIcons>
                                     </TouchableOpacity>
                                 </>
-
-                            }
+                            )}
                         </View>
 
                     </View>

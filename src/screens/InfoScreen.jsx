@@ -109,7 +109,7 @@ export default class InfoScreen extends Component {
         const { topicList, topicMap } = this.props
         const renderPostItems = this.props.postList
             .map((post, index) => {
-                const display = (topicList[topicMap[post.getTopic().id]].isDisplay) ? "flex" : "none"
+                const display = (topicList[topicMap[post.getTopic().id]]?.isDisplay) ? "flex" : "none"
                 // const display = "flex";
                 return (
                     <View style={{ display: display }} key={post.getId()} >
@@ -117,8 +117,7 @@ export default class InfoScreen extends Component {
                             post={post}
                             goRefreshNthPost={this.props.goRefreshNthPost(index)} />
                     </View>)
-            }
-            );
+            });
 
 
         // const queryDisplay = (this.props.isQuery)?"flex":"none";

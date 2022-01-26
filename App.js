@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useMemo,useCallback, useEffect, useRef, useState, useReducer } from 'react';
 import { Vibration, Alert, AppState, View } from 'react-native';
 import Routes from './src/Routes';

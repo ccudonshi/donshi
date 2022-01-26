@@ -121,6 +121,7 @@ export default function MentionInputContainer(props) {
                     <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                         <View style={styles.commentInputBox} flexDirection='row' justifyContent='space-between'>
                             <MentionInput
+                                style={{ width: 232 }}
                                 inputRef={inputRef}
                                 value={text}
                                 onChange={onChangeText}
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         backgroundColor: '#F0F0F0',
         borderRadius: 20,
-        color: 'red'
+        color: 'red',
         // overflow: 'hidden'
     },
     textStyle: {

@@ -21,36 +21,28 @@ import {
     EditPhone,
     EditProfileImage
 } from "./EditComponets";
-import { lessThan } from 'react-native-reanimated';
 import { useSocketIOInNavigation } from '../../component/useSocketIO';
 
 function SwitchEditModal({ editType, myUser, setMyUser, closeModal }) {
     switch (editType) {
         case 'gender':
             return <ProfileEditModal actFunc={EditGender({ myUser, setMyUser })} closeModal={closeModal} />;
-            break;
         case 'username':
             return <ProfileEditModal actFunc={EditUserName({ myUser, setMyUser })} closeModal={closeModal} />;
-            break;
         case 'info':
             return <ProfileEditModal actFunc={EditIntroduction({ myUser, setMyUser })} closeModal={closeModal} />;
-            break;
         case 'birthday':
             return (
                 (Platform.OS === 'ios')
                     ?   <ProfileEditModal actFunc={EditBirthDay({ myUser, setMyUser })} closeModal={closeModal} />
                     :   <AndroidEditDateModal isVisible={(editType==='birthday')} myUser={myUser} setMyUser={setMyUser} closeModal={closeModal} />
-            )
-            break;
+            );
         case 'phone':
             return <ProfileEditModal actFunc={EditPhone({ myUser, setMyUser })} closeModal={closeModal} />;
-            break;
         case 'image':
             return <ProfileEditModal actFunc={EditProfileImage({ myUser, setMyUser })} closeModal={closeModal} />;
-            break;
         default:
             return null;
-            break;
     }
 }
 

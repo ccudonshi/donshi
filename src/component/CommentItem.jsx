@@ -60,12 +60,11 @@ export default class CommentItem extends Component {
                         <ReplyContainer comment={this.props.comment} commentId={this.props.comment.getId()} replies={this.props.comment.replies} ReplyContainerVisible={this.state.ReplyContainerVisible} setReplyContainerVisible={this.setReplyContainerVisible}></ReplyContainer>
                         <Text style={{ color: '#5698FC', fontSize: 13 }}>回覆</Text>
                     </TouchableOpacity>
-                    {
-                        (this.props.comment.getUser().getId() === this.props.userId) &&
+                    {(this.props.comment.getUser().getId() === this.props.userId) && (
                         <TouchableOpacity onPress={this.deleteComment} style={{ marginTop: 5, marginLeft: 20 }}>
                             <Text style={{ color: '#5698FC', fontSize: 13 }}>刪除</Text>
                         </TouchableOpacity>
-                    }
+                    )}
 
                 </View>
 
