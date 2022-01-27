@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
-import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import React, { Component } from 'react';
+import { Text, StyleSheet, View, Image } from 'react-native';
+import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import AppDBHelper from '../helper/AppDBHelper';
 import { diffDate } from '../helper/helper';
 import { renderParserText } from './renderParserText';
+import * as Clipboard from 'expo-clipboard';
 
 
 export default class ReplyItem extends Component {
@@ -48,6 +49,9 @@ export default class ReplyItem extends Component {
                     {/* <TouchableOpacity style={{ marginTop: 5, marginLeft: 20 }}>
                         <Text style={{ color: '#5698FC', fontSize: 13 }}>回覆</Text>
                     </TouchableOpacity> */}
+                    <TouchableOpacity onPress={() => Clipboard.setString(this.props.reply.getText())} style={{ marginTop: 5, marginLeft: 20 }}>
+                        <Text style={{ color: '#5698FC', fontSize: 13 }}>複製</Text>
+                    </TouchableOpacity>
                     {
                         (user.getId() === this.props.userId) &&
                         <TouchableOpacity onPress={this.deleteReply} style={{ marginTop: 5, marginLeft: 20 }}>

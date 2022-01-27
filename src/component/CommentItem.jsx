@@ -7,6 +7,8 @@ import AppDBHelper from '../helper/AppDBHelper';
 import { Actions } from 'react-native-router-flux';
 import { diffDate } from '../helper/helper';
 import { renderParserText } from './renderParserText';
+import * as Clipboard from 'expo-clipboard';
+
 export default class CommentItem extends Component {
 
     constructor(props) {
@@ -59,6 +61,9 @@ export default class CommentItem extends Component {
                     <TouchableOpacity onPress={() => this.setReplyContainerVisible(true)} style={{ marginTop: 5, marginLeft: 20 }}>
                         <ReplyContainer comment={this.props.comment} commentId={this.props.comment.getId()} replies={this.props.comment.replies} ReplyContainerVisible={this.state.ReplyContainerVisible} setReplyContainerVisible={this.setReplyContainerVisible}></ReplyContainer>
                         <Text style={{ color: '#5698FC', fontSize: 13 }}>回覆</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Clipboard.setString(this.props.comment.text)} style={{ marginTop: 5, marginLeft: 20 }}>
+                        <Text style={{ color: '#5698FC', fontSize: 13 }}>複製</Text>
                     </TouchableOpacity>
                     {(this.props.comment.getUser().getId() === this.props.userId) && (
                         <TouchableOpacity onPress={this.deleteComment} style={{ marginTop: 5, marginLeft: 20 }}>

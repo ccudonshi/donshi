@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, Alert } from 'react-native'
-import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import CommentItem from '../component/CommentItem'
-import AppHelper from '../helper/AppDBHelper'
+import React, { Component } from 'react';
+import { Text, StyleSheet, View, Image, Alert } from 'react-native';
+import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import CommentItem from '../component/CommentItem';
+import AppHelper from '../helper/AppDBHelper';
 import Moment from 'moment';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Menu from './Menu';
-import CommentContainer from './CommentContainer'
-import { getCurrentUserASync } from '../helper/helper'
-import { ActionConst, Actions } from 'react-native-router-flux'
-import { MapModal } from '../component/MapModal'
-import { goToGoogleMap } from '../helper/helper'
+import CommentContainer from './CommentContainer';
+import { getCurrentUserASync } from '../helper/helper';
+import { ActionConst, Actions } from 'react-native-router-flux';
+import { MapModal } from '../component/MapModal';
+import { goToGoogleMap } from '../helper/helper';
+import * as Clipboard from 'expo-clipboard';
 
 //每一篇貼文
 export default class PostItem extends Component {
@@ -128,7 +129,13 @@ export default class PostItem extends Component {
                             style={styles.content}
                             multiline={true}
                             // numberOfLines={5}
-                            maxLength={1000}>{this.props.post.getText()}</Text>
+                            maxLength={1000}
+                        >
+                            {this.props.post.getText()}
+                        </Text>
+                        <TouchableOpacity onPress={() => Clipboard.setString(this.props.post.getText())} style={{ marginTop: 5 }}>
+                            <Text style={{ color: '#5698FC', fontSize: 16 }}>複製內文</Text>
+                        </TouchableOpacity>
                         {
                             this.props.post.getFiles().map(file =>
                                 <Image key={file.id} style={styles.postImg} source={{ uri: file.getUrl() }} />
