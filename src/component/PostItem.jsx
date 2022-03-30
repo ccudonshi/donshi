@@ -134,7 +134,7 @@ export default class PostItem extends Component {
                             {this.props.post.getText()}
                         </Text>
                         <TouchableOpacity onPress={() => Clipboard.setString(this.props.post.getText())} style={{ marginTop: 5 }}>
-                            <Text style={{ color: '#5698FC', fontSize: 16 }}>複製內文</Text>
+                            <Text style={{ color: '#5698FC', fontSize: 16, marginLeft: 5 }}>複製內文</Text>
                         </TouchableOpacity>
                         {
                             this.props.post.getFiles().map(file =>

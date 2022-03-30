@@ -24,9 +24,9 @@ export default class MyToken {
         return this.token;
     }
     static setToken(newToken){ this.token=newToken;}
-    static saveToken(newToken){
+    static async saveToken(newToken){
         this.setToken(newToken);
-        return Storage.save(this.STORAGE_TYPE,newToken)
+        return await Storage.save(this.STORAGE_TYPE,newToken)
     }
     static async getDecoded(){
         if((this.token==null)||(this.token==""))

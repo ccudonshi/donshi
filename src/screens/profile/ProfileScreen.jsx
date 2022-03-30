@@ -185,7 +185,7 @@ export default function ProfileScreen({ route }) {
                         </TouchableOpacity>
                     </View>
 
-                    <MaterialCommunityIcons onPress={() => Actions.settings()} name="settings" style={{ color: '#7c7c7c', marginRight: 30, }} size={30} />
+                    <MaterialCommunityIcons onPress={() => Actions.settings()} name="cog" style={{ color: '#7c7c7c', marginRight: 30, }} size={30} />
                 </View>
 
 

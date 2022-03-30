@@ -1,4 +1,4 @@
-import {AsyncStorage}from 'react-native';
+import * as SecureStorage from 'expo-secure-store';
 
 export default class DeviceStorage {
     /**
@@ -6,11 +6,9 @@ export default class DeviceStorage {
     * @param key
     * @returns {Promise<T>|*|Promise.<TResult>}
     */
-    static get(key) {
-        return AsyncStorage.getItem(key).then((value) => {
-            const jsonValue = (value !== 'null') ? JSON.parse(value):null;
-            return jsonValue;
-        });
+    static async get(key) {
+        const value = await SecureStorage.getItemAsync(key);
+        return (value !== 'null') ? JSON.parse(value) : null;
     }
     /**
     * 保存
@@ -18,8 +16,8 @@ export default class DeviceStorage {
     * @param value
     * @returns {*}
     */
-    static save(key, value) {
-        return AsyncStorage.setItem(key, JSON.stringify(value));
+    static async save(key, value) {
+        return await SecureStorage.setItemAsync(key, JSON.stringify(value));
     }
     /**
     * 更新
@@ -27,11 +25,10 @@ export default class DeviceStorage {
     * @param value
     * @returns {Promise<T>|Promise.<TResult>}
     */
-    static update(key, value) {
-        return DeviceStorage.get(key).then((item) => {
-            value = typeof value === 'string' ? value : Object.assign({}, item, value);
-            return AsyncStorage.setItem(key, JSON.stringify(value));
-    });
+    static async update(key, value) {
+        const _value = await DeviceStorage.get(key);
+        value = typeof value === 'string' ? value : Object.assign({}, _value, value);
+        return await DeviceStorage.save(key, value);
     }
    
     /**
@@ -39,8 +36,8 @@ export default class DeviceStorage {
     * @param key
     * @returns {*}
     */
-    static delete(key) {
-        return AsyncStorage.removeItem(key);
+    static async delete(key) {
+        return await SecureStorage.deleteItemAsync(key);
     }
    }
    
