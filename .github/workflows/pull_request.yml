@@ -28,26 +28,13 @@ jobs:
         id: sensitive
         run: |
           echo "${{ secrets.CONFIG_JS }}" > ./Config.js
-          echo ::set-output name=config_js::$(cat Config.js)
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./google-services.json
-          echo ::set-output name=google_service_json::$(cat google-services.json)
           echo '${{ secrets.GOOGLE_SERVICE_PLIST }}' > ./GoogleService-Info.plist
-          echo ::set-output name=google_service_plist::$(cat GoogleService-Info.plist)
           sed -i.backup 's/RESERVED_CLIENT_ID/${{ secrets.RESERVED_CLIENT_ID }}/' app.json
           sed -i.backup 's/IOS_GOOGLE_MAPS_API_KEY/${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}/' app.json
           sed -i.backup 's/ANDROID_API_KEY/${{ secrets.ANDROID_API_KEY }}/' app.json
           sed -i.backup 's/ANDROID_CERTIFICATE_HASH/${{ secrets.ANDROID_CERTIFICATE_HASH }}/' app.json
-          echo ::set-output name=app_json::$(cat app.json)
-
-      - name: 🔍 Check Secrets
-        run: |
-          echo ${{ steps.sensitive.outputs.config_js }}
-          echo ${{ steps.sensitive.outputs.google_service_json }}
-          echo ${{ steps.sensitive.outputs.google_service_plist }}
-          echo ${{ steps.sensitive.outputs.app_json }}
-          ls -a
           rm *.backup
-          ls -a
 
       - name: 📦 Install dependencies
         run: yarn install
@@ -56,4 +43,4 @@ jobs:
         run: expo publish --non-interactive --release-channel=$PR_ID
 
       - name: 🌐 Project page
-        run: echo https://expo.dev/@lo0k/lo0k?release-channel=$PR_ID
+        run: echo https://expo.dev/@donshi/donshi?release-channel=$PR_ID
