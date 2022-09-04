@@ -1,4 +1,4 @@
-import * as SecureStorage from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class DeviceStorage {
     /**
@@ -7,7 +7,7 @@ export default class DeviceStorage {
     * @returns {Promise<T>|*|Promise.<TResult>}
     */
     static async get(key) {
-        const value = await SecureStorage.getItemAsync(key);
+        const value = await AsyncStorage.getItem(key);
         return (value !== 'null') ? JSON.parse(value) : null;
     }
     /**
@@ -17,7 +17,7 @@ export default class DeviceStorage {
     * @returns {*}
     */
     static async save(key, value) {
-        return await SecureStorage.setItemAsync(key, JSON.stringify(value));
+        return await AsyncStorage.setItem(key, JSON.stringify(value));
     }
     /**
     * 更新
@@ -37,7 +37,7 @@ export default class DeviceStorage {
     * @returns {*}
     */
     static async delete(key) {
-        return await SecureStorage.deleteItemAsync(key);
+        return await AsyncStorage.removeItem(key);
     }
    }
    
