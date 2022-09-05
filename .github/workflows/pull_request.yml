@@ -43,9 +43,14 @@ jobs:
       - name: 🚀 Publish app
         run: |
           eas build -p android --non-interactive
-          curl -V
-          jq -V
+          curl -o donshi.apk -L "$(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
         # run: expo publish --non-interactive --release-channel=$PR_ID
+
+      - name: 🌐 Project artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Donshi app apk
+          path: donshi.apk
 
       # - name: 🌐 Project page
       #   run: echo https://expo.dev/@donshi/donshi?release-channel=$PR_ID
