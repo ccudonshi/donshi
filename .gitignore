@@ -17,12 +17,7 @@ src/screens/test/fakeDatas.js
 
 
 # env
-Config.js
-GoogleService-Info.plist
-google-services.json
-app.json
+# Config.js
+# GoogleService-Info.plist
+# google-services.json
 *.jks
-
-# lock files
-package-lock.json
-yarn.lock

@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "donshi",
+    "slug": "donshi",
+    "scheme": "donshi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.reactnative.donshi",
+      "buildNumber": "1.0.0",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "RESERVED_CLIENT_ID"
+        },
+        "googleMapsApiKey": "IOS_GOOGLE_MAPS_API_KEY"
+      },
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "android": {
+      "package": "org.reactnative.donshi",
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "ANDROID_API_KEY",
+          "certificateHash": "ANDROID_CERTIFICATE_HASH"
+        },
+        "googleMaps": {
+          "apiKey": "ANDROID_API_KEY"
+        }
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5ed32311-86a1-4965-91f6-2b5ded1be771"
+      }
+    }
+  }
+}
