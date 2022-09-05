@@ -40,7 +40,10 @@ jobs:
         run: yarn install
 
       - name: 🚀 Publish app
-        run: expo publish --non-interactive --release-channel=$PR_ID
+        run: |
+          eas build -p android --non-interactive
+          curl -h
+        # run: expo publish --non-interactive --release-channel=$PR_ID
 
-      - name: 🌐 Project page
-        run: echo https://expo.dev/@donshi/donshi?release-channel=$PR_ID
+      # - name: 🌐 Project page
+      #   run: echo https://expo.dev/@donshi/donshi?release-channel=$PR_ID
