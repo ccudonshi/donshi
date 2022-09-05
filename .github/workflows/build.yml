@@ -38,7 +38,7 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Publish app
+      - name: 🛠️ Build app
         run: |
           eas build -p android --non-interactive
           curl -o donshi.apk -L "$(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
