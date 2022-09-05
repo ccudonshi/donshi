@@ -17,7 +17,7 @@ src/screens/test/fakeDatas.js
 
 
 # env
-# Config.js
-# GoogleService-Info.plist
-# google-services.json
+Config.js
+GoogleService-Info.plist
+google-services.json
 *.jks
