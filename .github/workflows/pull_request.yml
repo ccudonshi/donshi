@@ -1,7 +1,7 @@
 name: CI on PR
 on:
   pull_request:
-    branches: ["master"]
+    branches: ["master", "develop"]
   workflow_dispatch:
 
 jobs:
