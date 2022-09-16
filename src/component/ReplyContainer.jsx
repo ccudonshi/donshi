@@ -11,7 +11,6 @@ import {
     Platform,
     TouchableHighlight
 } from 'react-native';
-import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { EvilIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';

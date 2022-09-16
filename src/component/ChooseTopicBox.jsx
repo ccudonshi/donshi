@@ -47,16 +47,13 @@ export default class ChooseTopicBox extends Modal {
                 animationType="fade"
                 transparent={true}
                 visible={this.props.modalVisible}
-                onRequestClose={() => this.props.setModalVisible((prev) => !prev)}>
-
+                onRequestClose={() => this.props.setModalVisible((prev) => !prev)}
+            >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText} >選擇主題</Text>
-
-                        {/* <View style={styles.topicBox}> */}
                         <View style={{ height: 240 }}>
                             <ScrollView >
-
                                 {/* 主題列表 */}
                                 <View style={{ paddingBottom: 20 }}>
                                     {
@@ -67,23 +64,16 @@ export default class ChooseTopicBox extends Modal {
                                         ))
                                     }
                                 </View>
-
                             </ScrollView>
                         </View>
-
-                        
                     </View>
                 </View>
-
             </Modal>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    topicBox: {
-        height: undefined
-    },
     centeredView: {
         flex:1,
         backgroundColor: 'rgba(0,0,0,0.5)',
