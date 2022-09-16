@@ -47,10 +47,7 @@ export default class ChooseTopicBox extends Modal {
                 animationType="fade"
                 transparent={true}
                 visible={this.props.modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    // setModalVisible(!this.props.modalVisible);
-                }}>
+                onRequestClose={() => this.props.setModalVisible((prev) => !prev)}>
 
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
