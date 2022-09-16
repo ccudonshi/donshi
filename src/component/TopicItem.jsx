@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
+import React from 'react';
+import { Text, StyleSheet, View } from 'react-native';
 
 // view 
 // 陣列
 // 陣列 => map
 
-export default function TopicItem({ topic }) {
-
+export default ({ topic }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{topic}</Text>
         </View>
     );
-}
+};
 
 
 const styles = StyleSheet.create({
@@ -29,10 +27,6 @@ const styles = StyleSheet.create({
         paddingHorizontal:40,
         backgroundColor: '#E0E0E0',
         borderRadius: 20,
-        // alignSelf:'center',
-        // resizeMode: 'contain',
-        width: undefined,
-        height: 35
     },
 
 })
