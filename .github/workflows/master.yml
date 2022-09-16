@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⚙️ Setup repo
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Node
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16.x
+
+      - name: ⚙️ Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: ⚙️ Setup Sensitive Secrets
+        id: sensitive
+        run: |
+          echo "${{ secrets.CONFIG_JS }}" > ./Config.js
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_PLIST }}' > ./GoogleService-Info.plist
+          sed -i.backup 's/RESERVED_CLIENT_ID/${{ secrets.RESERVED_CLIENT_ID }}/' app.json
+          sed -i.backup 's/IOS_GOOGLE_MAPS_API_KEY/${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}/' app.json
+          sed -i.backup 's/ANDROID_API_KEY/${{ secrets.ANDROID_API_KEY }}/' app.json
+          sed -i.backup 's/ANDROID_CERTIFICATE_HASH/${{ secrets.ANDROID_CERTIFICATE_HASH }}/' app.json
+          rm *.backup
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🛠️ Build app
+        run: |
+          eas build -p android --non-interactive
+          curl -o donshi.apk -L "$(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
+
+      - name: 🌐 Project artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Donshi app apk
+          path: donshi.apk
