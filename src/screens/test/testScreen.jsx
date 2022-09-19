@@ -14,7 +14,6 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
 import { ScrollView,  TextInput } from 'react-native-gesture-handler';
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';

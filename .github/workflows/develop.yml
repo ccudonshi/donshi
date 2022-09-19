@@ -1,14 +1,12 @@
-name: CI on PR
+name: CI
 on:
-  pull_request:
-    branches: ["master", "develop"]
+  push:
+    branches: ["develop"]
   workflow_dispatch:
 
 jobs:
-  publish-pull_request:
+  build:
     runs-on: ubuntu-latest
-    env:
-      PR_ID: ${{ github.event.number }}
     steps:
       - name: ⚙️ Setup repo
         uses: actions/checkout@v3
@@ -40,8 +38,13 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Publish app
-        run: expo publish --non-interactive --release-channel=$PR_ID
+      - name: 🛠️ Build app
+        run: |
+          eas build -p android --non-interactive
+          curl -o donshi.apk -L "$(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
 
-      - name: 🌐 Project page
-        run: echo https://expo.dev/@donshi/donshi?release-channel=$PR_ID
+      - name: 🌐 Project artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Donshi app apk
+          path: donshi.apk

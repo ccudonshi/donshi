@@ -44,14 +44,8 @@ const getCurrentUserASync = async () => {
 
 const goToGoogleMap = (latlng) => {
   const { latitude, longitude } = latlng;
-  var url = `https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${latitude},${longitude}`;
-  Linking.canOpenURL(url).then(supported => {
-    if (!supported) {
-      console.log('Can\'t handle url: ' + url);
-    } else {
-      return Linking.openURL(url);
-    }
-  }).catch(err => console.warn('An error occurred', err));
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+  Linking.openURL(url);
 }
 
 const diffDate = (date1) => {
