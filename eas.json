@@ -13,11 +13,7 @@
     "production": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk",
-        "autoIncrement": "version"
-      },
-      "ios": {
-        "autoIncrement": "version"
+        "buildType": "apk"
       }
     }
   },
