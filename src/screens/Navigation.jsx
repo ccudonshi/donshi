@@ -2,11 +2,12 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
-import { Ionicons, MaterialIcons, AntDesign , MaterialCommunityIcons, FontAwesome5} from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome5} from '@expo/vector-icons';
 
 import GoogleMapScreen from './map/GoogleMapScreen'
 import ProfileScreen from './profile/'
 import InfoNeedPostType from './InfoNeedPostType'
+import { Text } from 'react-native-paper';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -28,7 +29,6 @@ export default function Navigation({refresh}) {
             <Tab.Navigator
                 initialRouteName="InfoScreen"
                 activeColor="#fff"
-                // inactiveColor="#4F4F4F"
             >
                 
 
@@ -36,7 +36,7 @@ export default function Navigation({refresh}) {
                     name="infoScreen"
                     component={info}
                     options={{
-                        tabBarLabel: '資訊',
+                        tabBarLabel: <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>資訊</Text>,
                         tabBarColor:'#009387',
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name="view-dashboard" color={color} size={24} />
@@ -48,7 +48,7 @@ export default function Navigation({refresh}) {
                     name="needScreen"
                     component={need}
                     options={{
-                        tabBarLabel: '需求',
+                        tabBarLabel: <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>需求</Text>,
                         tabBarColor:'#cd5c5c',
                         tabBarIcon: ({ color }) => (
                             <FontAwesome5 name="hands-helping" color={color} size={20} />
@@ -60,7 +60,7 @@ export default function Navigation({refresh}) {
                     name="profile"
                     component={ProfileScreen}
                     options={{
-                        tabBarLabel: '個人頁面',
+                        tabBarLabel: <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>個人頁面</Text>,
                         tabBarColor:'#FFA042',
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name="account" color={color} size={26} />
@@ -72,7 +72,7 @@ export default function Navigation({refresh}) {
                     name="map"
                     component={GoogleMapScreen}
                     options={{
-                        tabBarLabel: '地圖',
+                        tabBarLabel: <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>地圖</Text>,
                         tabBarColor:'#0066CC',
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name="map-marker" color={color} size={26} />
