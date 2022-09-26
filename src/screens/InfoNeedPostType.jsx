@@ -33,29 +33,29 @@ export default ({ isNeed }) => {
         return posts;
     },[typeId]);
   
-    const switchTopicDisplay = (targetTopic) => (
+    const switchTopicDisplay = (targetTopic) => {
         setTopicList(preTopicList =>
             preTopicList.map(({topic,isDisplay}) => 
                 (targetTopic.id === topic.id)
                 ? {topic,isDisplay:!isDisplay}
                 : {topic,isDisplay}
             )
-        )
-    )
+        );
+    };
 
     useEffect(() => {
         const mapping = {}
         topicList.forEach((value,index)=>{
-            mapping[value?.topic?.id] = index
-        })
-        setTopicMap(mapping)
-    }, [topicList,typeId])
+            mapping[value?.topic?.id] = index;
+        });
+        setTopicMap(mapping);
+    }, [topicList,typeId]);
 
 
     // 往下滑取得更多資料
     useEffect(() => { 
         if(!isGettingMoreData) return;
-        setOffset(preOffset=>preOffset+PATCH_NUMBER)
+        setOffset(preOffset => preOffset+PATCH_NUMBER)
     }, [canGetMoreData])
 
 
