@@ -21,7 +21,6 @@ import CommentItem from './CommentItem'
 import AppDBHelper from '../helper/AppDBHelper';
 import Post from '../model/Post';
 import Comment from '../model/Comment';
-import { Actions } from 'react-native-router-flux';
 import { renderParserText } from './renderParserText';
 
 //留言

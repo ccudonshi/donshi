@@ -8,7 +8,6 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Menu from './Menu';
 import CommentContainer from './CommentContainer';
 import { getCurrentUserASync } from '../helper/helper';
-import { ActionConst, Actions } from 'react-native-router-flux';
 import { goToGoogleMap } from '../helper/helper';
 import * as Clipboard from 'expo-clipboard';
 
