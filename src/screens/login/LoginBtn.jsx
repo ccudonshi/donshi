@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-color-literals */
-import PropTypes from "prop-types";
 import React, { useState, useEffect , useRef} from 'react'
 import { View ,Image , Text, TouchableOpacity,StyleSheet} from 'react-native';
 // 登入按鈕的UI和功能
@@ -55,10 +54,6 @@ const LoginBtn = (props)=>{
               </View>
       </TouchableOpacity>
     )
-}
-
-LoginBtn.propTypes = {
-  onPress: PropTypes.func
 }
 
 export default LoginBtn;

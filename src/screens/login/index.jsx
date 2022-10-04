@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
 import LoginExpo from './LoginExpo'
 import Constants from 'expo-constants';
-import LoginStandalone from './LoginStandalone'
 import AppDBHelper from '../../helper/AppDBHelper'
 import MyToken from '../../model/MyToken';
 import { Actions } from 'react-native-router-flux';

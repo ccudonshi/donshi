@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect } from 'react'
 import { Text, StyleSheet, View, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -40,17 +39,6 @@ export default function RegisterSecond({
         </TouchableOpacity>
     </View>;
 }
-
-RegisterSecond.propTypes = {
-    hasError: PropTypes.any,
-    image: PropTypes.any,
-    onBackStep: PropTypes.func,
-    onSubmitClick: PropTypes.func,
-    pickImage: PropTypes.func,
-}
-
-
-
 
 const styles = StyleSheet.create({
     background: {

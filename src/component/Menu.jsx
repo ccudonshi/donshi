@@ -8,7 +8,6 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import { Dialog } from 'react-native-simple-dialogs';
 import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
 import { ScrollView, } from 'react-native-gesture-handler';
