@@ -41,7 +41,7 @@ jobs:
       - name: 🛠️ Build app
         run: |
           eas build -p android --non-interactive
-          curl -o donshi.apk -L "$(eas build:list --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
+          curl -o donshi.apk -L "$(eas build:list --non-interactive --json --limit=1 --platform=android | jq -r '.[0].artifacts.buildUrl')"
 
       - name: 🌐 Project artifacts
         uses: actions/upload-artifact@v3
