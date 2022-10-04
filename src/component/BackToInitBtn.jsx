@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from 'react';
 import ImgButton from './ImgButton';
 
@@ -47,11 +46,3 @@ export function BackToInitBtn({ mapRef, initalRegion }) {
             onPress={backToInit} />
     );
 }
-BackToInitBtn.propTypes = {
-    initalRegion: PropTypes.object,
-    mapRef: PropTypes.shape({
-        current: PropTypes.shape({
-            animateToRegion: PropTypes.func
-        })
-    })
-};

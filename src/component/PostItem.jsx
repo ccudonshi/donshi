@@ -9,7 +9,6 @@ import Menu from './Menu';
 import CommentContainer from './CommentContainer';
 import { getCurrentUserASync } from '../helper/helper';
 import { ActionConst, Actions } from 'react-native-router-flux';
-import { MapModal } from '../component/MapModal';
 import { goToGoogleMap } from '../helper/helper';
 import * as Clipboard from 'expo-clipboard';
 

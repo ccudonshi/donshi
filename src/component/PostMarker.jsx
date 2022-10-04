@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from 'react'
 import { Image, View, Text, Linking} from 'react-native'
 import {Platform} from 'react-native'
@@ -38,14 +37,6 @@ const PostMarker = (props) => {
     </Marker>
   )
     
-}
-
-PostMarker.propTypes = {
-  coordinate: PropTypes.any,
-  description: PropTypes.any,
-  imageSrc: PropTypes.any,
-  title: PropTypes.any
-}
-  
+}  
 
 export default PostMarker;

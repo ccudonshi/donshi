@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState, useRef } from 'react'
 import { Asset } from 'expo-asset';
 import { Animated, Dimensions, View } from 'react-native'
@@ -113,13 +112,3 @@ export default function Map({ animateTranform, displayData, isSideBarDisplay, di
         </Animated.View>
     )
 }
-
-Map.propTypes = {
-    animateTranform: PropTypes.any,
-    displayData: PropTypes.any,
-    displayClick: PropTypes.any,
-    isSideBarDisplay: PropTypes.any
-}
-
-
-

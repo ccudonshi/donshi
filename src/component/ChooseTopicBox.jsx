@@ -13,10 +13,6 @@ import {
 import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
 import { Alert, TouchableOpacity, ScrollView, } from 'react-native';
-import PropTypes from 'prop-types';
-
-
-
 
 //選擇主題
 export default class ChooseTopicBox extends Modal {
