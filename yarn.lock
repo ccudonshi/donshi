@@ -1188,7 +1188,7 @@
     node-forge "^1.2.1"
     nullthrows "^1.1.1"
 
-"@expo/config-plugins@4.1.5", "@expo/config-plugins@^4.0.14", "@expo/config-plugins@^4.0.2", "@expo/config-plugins@~4.1.4":
+"@expo/config-plugins@4.1.5", "@expo/config-plugins@^4.0.14", "@expo/config-plugins@~4.1.4":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.1.5.tgz#9d357d2cda9c095e511b51583ede8a3b76174068"
   integrity sha512-RVvU40RtZt12HavuDAe+LDIq9lHj7sheOfMEHdmpJ/uTA8pgvkbc56XF6JHQD+yRr6+uhhb+JnAasGq49dsQbw==
@@ -4028,14 +4028,6 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-expo-app-auth@~11.1.0:
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/expo-app-auth/-/expo-app-auth-11.1.1.tgz#14331bfc26f754560f08c5e4100b2a958b4ea55e"
-  integrity sha512-BYsVJ54GySnpVjRLmUX//XkDkqlqigpOS+MWBARURecPu038Ei2tsIsboLqbaa6oyoWhtU9OfYacVHczE/BFmQ==
-  dependencies:
-    "@expo/config-plugins" "^4.0.2"
-    invariant "^2.2.4"
-
 expo-application@~4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-4.1.0.tgz#e0214ff7cf73db5a5e97e609ffbab3cc98288030"
@@ -4114,21 +4106,6 @@ expo-font@~10.1.0:
   integrity sha512-vmhzpE95Ym4iOj8IELof+C/3Weert2B3LyxV5rBjGosjzBdov+o+S6b5mN7Yc9kyEGykwB6k7npL45X3hFYDQA==
   dependencies:
     fontfaceobserver "^2.1.0"
-
-expo-google-app-auth@~8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/expo-google-app-auth/-/expo-google-app-auth-8.3.0.tgz#076c2e44aa56eda73fd09c422bc11da1614dbd4f"
-  integrity sha512-JZd2N2W4mpqdoH0R68zrqmZvKKF8D/5i7lF4tmkWNdmWpGs5JgEfdKLYC5x93Yze7vwsrHKwEmyA6R74cR0e2A==
-  dependencies:
-    expo-app-auth "~11.1.0"
-
-expo-google-sign-in@~10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/expo-google-sign-in/-/expo-google-sign-in-10.2.0.tgz#4ae074cadf6b876cf22379eeb72bf7223b164449"
-  integrity sha512-o7ifg5e9/jX3gWxos6J2kvcg/lmfrQRHdfH5NHeMoj3Ovb186dmasc7szYQ5EqstmKCZL40kh0vVjVVcwCzggQ==
-  dependencies:
-    "@expo/config-plugins" "^4.0.14"
-    invariant "^2.2.4"
 
 expo-image-loader@~3.2.0:
   version "3.2.0"
