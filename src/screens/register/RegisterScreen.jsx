@@ -1,15 +1,19 @@
-import React, {useState,useEffect } from 'react'
+import React, {useState,useEffect, useContext } from 'react'
 import RegisterFirst from './RegisterFirst'
 import RegisterSecond from './RegisterSecond'
 import User from '../../model/User';
 import { Alert } from 'react-native';
 import { cancelable } from 'cancelable-promise';
-import { Actions } from 'react-native-router-flux';
 import AppDBHelper from '../../helper/AppDBHelper';
 import { useImagePick } from '../../component/useImagePick';
+import AuthContextStore from '../../authContext';
+import { getCurrentUserASync } from '../../helper/helper';
+
 // 註冊頁面
-export default function RegisterScreen({googleIdToken,accountInfo}){
+export default function RegisterScreen({ route: { params: { googleIdToken, accountInfo } }, navigation }){
     const account = accountInfo.account
+    const [authState, authDispatch] = useContext(AuthContextStore);
+
     const [username, setUsername] = useState(accountInfo.username)
     const [gender, setGender] = useState('')
     const [birthday, setBirthday] = useState('');
@@ -25,8 +29,13 @@ export default function RegisterScreen({googleIdToken,accountInfo}){
         async function goRegister(){
             const user = new User({account,username,gender,birthday,phone})
             const manager = await AppDBHelper();
-            manager.register(user,image,googleIdToken)
-                   .then(()=> Actions.replace("home"))
+            await manager.register(user,image,googleIdToken);
+
+            const newUser = await getCurrentUserASync();
+            authDispatch({
+                type: 'login',
+                payload: { userId: newUser.getId() },
+            });
         }
 
         const cancelableSubmit = cancelable(goRegister());
