@@ -99,7 +99,12 @@ export default class PostItem extends Component {
                                     <Menu
                                         editPost={this.props.post}
                                         modalVisible={this.state.modalVisible}
-                                        setModalVisible={this.setModalVisible}></Menu>
+                                        setModalVisible={this.setModalVisible}
+                                        onEdit={() => {
+                                            this.setModalVisible(false);
+                                            this.props.navigation.navigate('EditPost', { post: this.props.post })
+                                        }}
+                                    />
                                     <TouchableOpacity onPress={() => this.setModalVisible(true)}>
                                         <MaterialCommunityIcons style={styles.iconStyle} name='dots-vertical' size={24}></MaterialCommunityIcons>
                                     </TouchableOpacity>

@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity ,Platform} from 'react-native'
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import PostItem from "../../component/PostItem";
-import { Actions } from 'react-native-router-flux';
 import AppHelper from '../../helper/AppDBHelper'
 import User from '../../model/User';
 import { useFocusEffect } from '@react-navigation/native';
@@ -47,7 +46,7 @@ function SwitchEditModal({ editType, myUser, setMyUser, closeModal }) {
 }
 
 // 個人資料頁面
-export default function ProfileScreen({ route }) {
+export default function ProfileScreen({ route, navigation }) {
     const refresh = route.params
     const [myUser, setMyUser] = useState(new User())
     const [postList, setPostList] = useState([])
@@ -185,7 +184,7 @@ export default function ProfileScreen({ route }) {
                         </TouchableOpacity>
                     </View>
 
-                    <MaterialCommunityIcons onPress={() => Actions.settings()} name="cog" style={{ color: '#7c7c7c', marginRight: 30, }} size={30} />
+                    <MaterialCommunityIcons onPress={() => navigation.navigate('Settings')} name="cog" style={{ color: '#7c7c7c', marginRight: 30, }} size={30} />
                 </View>
 
 

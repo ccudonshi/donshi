@@ -11,7 +11,7 @@ export default function Login(props){
     return (
         // (Constants.appOwnership === 'expo')
         // ?   
-        <LoginExpo />
+        <LoginExpo {...props} />
         // :   <LoginStandalone />
     )   
 }

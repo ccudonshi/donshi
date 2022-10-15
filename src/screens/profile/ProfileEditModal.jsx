@@ -119,11 +119,11 @@ function useRequestClose(closeModal) {
   useEffect(() => {
     const _keyboardDidShow = () => setIsKeyBoardShow(true);
     const _keyboardDidHide = () => setIsKeyBoardShow(false);
-    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+    const showListener = Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    const hideListener = Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
     return () => {
-      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
-      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+      showListener.remove();
+      hideListener.remove();
     };
   }, []);
 

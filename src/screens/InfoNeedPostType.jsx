@@ -6,7 +6,7 @@ import { useRefreshNthPost } from '../component/useRefreshNthPost';
 import { useSocketIOInNavigation } from '../component/useSocketIO';
 import { cancelable } from 'cancelable-promise';
 
-export default ({ isNeed }) => {
+export default ({ isNeed, ...props }) => {
     const PATCH_NUMBER = 10;
 
     const [typeId, setTypeId] = useState(1);
@@ -117,6 +117,7 @@ export default ({ isNeed }) => {
             postList={postList}
             typeId={typeId}
             setTypeId={setTypeId}
+            {...props}
         />
     );
 };

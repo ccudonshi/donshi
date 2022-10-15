@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
+import { createStackNavigator } from '@react-navigation/stack';
 import { AddPostScreen, EditPostScreen } from './screens/addOrEditPost/'
 import InfoScreen from './screens/InfoScreen'
 import SettingsScreen from './screens/SettingsScreen'
@@ -13,14 +14,10 @@ import PositionView from './screens/addOrEditPost/PositionView'
 import ImageBrowserScreen from './screens/ImageBrowserScreen'
 import RegisterScreen from './screens/register/'
 import QueryScreen from './screens/QueryScreen'
-import PostShowScreen from './screens/PostShowScreen'
 
 
 // 這個App的path
-const Routes = (props) => {
-   const {isLoginInitailRoute} =props
-   console.log('route function')
-   console.log(props)
+const _Routes = ({ isLoginInitailRoute }) => {
    return (
    <Router>
       <Scene key="root">
@@ -36,12 +33,6 @@ const Routes = (props) => {
             title="Home"
             hideNavBar={true}
             initial={!isLoginInitailRoute} />
-      
-         <Scene
-            key="postShow"
-            component={PostShowScreen}
-            hideNavBar={true}
-            initial={false} />
         
          <Scene 
             key="query"
@@ -102,4 +93,63 @@ const Routes = (props) => {
       </Scene>
    </Router>
 )}
+
+const RouteStack = createStackNavigator();
+
+const Routes = ({ isLoginInitailRoute }) => {
+   return (
+      <RouteStack.Navigator
+         screenOptions={{
+            headerShown: false,
+         }}
+      >
+         {
+            isLoginInitailRoute ? (
+               <>
+                  <RouteStack.Screen
+                     name='Login'
+                     component={LoginScreen}
+                  />
+                  <RouteStack.Screen
+                     name='Register'
+                     component={RegisterScreen}
+                  />
+               </>
+            ) : (
+               <>
+                  <RouteStack.Screen
+                     name='Home'
+                     component={Navigation}
+                  />
+                  <RouteStack.Screen
+                     name='Settings'
+                     component={SettingsScreen}
+                  />
+                  <RouteStack.Screen
+                     name='EditPost'
+                     component={EditPostScreen}
+                  />
+                  <RouteStack.Screen
+                     name='AddPost'
+                     component={AddPostScreen}
+                  />
+                  <RouteStack.Screen
+                     name='Position'
+                     component={PositionView}
+                  />
+                  <RouteStack.Screen
+                     name='ImgBrowser'
+                     component={ImageBrowserScreen}
+                  />
+                  <RouteStack.Screen
+                     name='Query'
+                     component={QueryScreen}
+                  />
+               </>
+            )
+         }
+      </RouteStack.Navigator>
+   );
+};
+
 export default Routes;

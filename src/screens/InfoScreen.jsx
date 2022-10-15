@@ -3,7 +3,6 @@ import { Image, Text, StyleSheet, View, TouchableOpacity, ActivityIndicator, Ref
 import { ScrollView } from 'react-native-gesture-handler';
 import { EvilIcons } from '@expo/vector-icons'
 import PostItem from '../component/PostItem'
-import { Actions } from 'react-native-router-flux';
 import HorizontalItem from '../component/HorizontalItem';
 import HorizontalTopic from '../component/HorizontalTopic';
 import Type from '../model/Type.js';
@@ -18,6 +17,7 @@ const wait = (timeout) => {
 };
 
 export default ({
+    navigation,
     goRefreshNthPost,
     alreadyGetAllData,
     isGettingMoreData,
@@ -33,13 +33,8 @@ export default ({
     const [refreshing, setRefreshing] = useState(false);
 
     const addPost = () => {
-        Actions.push('post',
-            {
-                isNeed,
-                type: new Type({ id: typeId }),
-            }
-        )
-    }
+        navigation.navigate('AddPost', { isNeed, type: new Type({ id: typeId })});
+    };
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -54,7 +49,9 @@ export default ({
             <View style={{ display }} key={post.getId()} >
                 <PostItem
                     post={post}
-                    goRefreshNthPost={goRefreshNthPost(index)} />
+                    goRefreshNthPost={goRefreshNthPost(index)}
+                    navigation={navigation}
+                />
             </View>
         );
     }), [topicList, topicMap]);
@@ -68,7 +65,7 @@ export default ({
                         shadowColor: 'black',
                         shadowOpacity: 0.2,
                     }}
-                    onPress={() => Actions.push('query')}
+                    onPress={() => navigation.navigate('Query')}
                 >
                     <View style={{ backgroundColor: '#6C6C6C', padding: 5 }}>
                         <View style={styles.searchBtn}>
