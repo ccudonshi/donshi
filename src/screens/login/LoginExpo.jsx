@@ -34,7 +34,9 @@ export default function LoginExpo({ navigation }) {
                         googleIdToken: params.id_token,
                         accountInfo: data.payload,
                     });
+                    return;
                 }
+
                 const user = await getCurrentUserASync();
                 authDispatch({
                     type: "login",
