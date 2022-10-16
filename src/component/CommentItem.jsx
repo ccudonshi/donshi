@@ -4,7 +4,6 @@ import { TextInput, ScrollView,  } from 'react-native-gesture-handler'
 import ReplyContainer from '../component/ReplyContainer'
 import { getCurrentUserASync } from '../helper/helper';
 import AppDBHelper from '../helper/AppDBHelper';
-import { Actions } from 'react-native-router-flux';
 import { diffDate } from '../helper/helper';
 import { renderParserText } from './renderParserText';
 import * as Clipboard from 'expo-clipboard';

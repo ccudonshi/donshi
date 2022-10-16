@@ -6,7 +6,6 @@ import { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE i
 import PostMarker from '../../component/PostMarker'
 import { typeIdToImgSrc } from '../../helper/helper'
 import { mapStyles } from './styles'
-import { Actions } from 'react-native-router-flux';
 import { BackToInitBtn } from "../../component/BackToInitBtn";
 import PostsModal from '../../component/PostsModal'
 import PostItem from "../../component/PostItem";

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import AppHelper from '../../helper/AppDBHelper';
 import User from '../../model/User';
 import Post from '../../model/Post';
@@ -11,7 +10,7 @@ import PostView from './PostView';
 // AddPostScreen 和 EditPostScreen
 
 // 用來 新增貼文 的頁面
-export function AddPostScreen({ isNeed, type }) {
+export function AddPostScreen({ route: { params: { isNeed, type } }, navigation }) {
     const [topic, setTopic] = useState(new Topic());
     const [region, setRegion] = useState({}); // latlng
     const [postion, setPostion] = useState('');
@@ -44,39 +43,42 @@ export function AddPostScreen({ isNeed, type }) {
         if (checkHasInvalid()) return Alert.alert(getErrorMsg());
         const newPost = new Post({ ...region, title, topic, user, type, text, isNeed, startDate, endDate });
         const manager = await AppHelper();
-        manager.addNewPost(images, newPost).then(() => Actions.replace("home", { refresh: {} }));
+        manager.addNewPost(images, newPost).then(() => navigation.goBack());
+    };
+
+    const passedProps = {
+        onSubmit,
+        user,
+        setModalVisible,
+        topic,
+        modalVisible,
+        setTopic: (value) => {
+            setTopic(value);
+            setModalVisible(false);
+        },
+        title,
+        setTitle,
+        text,
+        setText,
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+        region,
+        setRegion,
+        images,
+        setImages,
+        type,
+        navigation,
     };
 
     return (
-        PostView(
-            onSubmit,
-            user,
-            setModalVisible,
-            topic,
-            modalVisible,
-            (value) => {
-                setTopic(value);
-                setModalVisible(false);
-            },
-            title,
-            setTitle,
-            text,
-            setText,
-            startDate,
-            endDate,
-            setStartDate,
-            setEndDate,
-            region,
-            setRegion,
-            images,
-            setImages,
-            type,
-        )
+        <PostView {...passedProps} />
     );
 };
 
 // 用來 編輯已有貼文 的頁面
-export function EditPostScreen({ post }) { // Post
+export function EditPostScreen({ route: { params: { post } }, navigation }) { // Post
     console.log(post)
     const id = post.getId();
     const isNeed = post.isNeed;
@@ -116,33 +118,36 @@ export function EditPostScreen({ post }) { // Post
         const newPost = new Post({ id, ...region, title, topic, user, type, text, isNeed, startDate, endDate, files });
 
         const manager = await AppHelper();
-        manager.updatePost(images, newPost).then(() => Actions.replace("home", { refresh: {} }));
+        manager.updatePost(images, newPost).then(() => navigation.goBack());
+    };
+
+    const passedProps = {
+        onSubmit,
+        user,
+        setModalVisible,
+        topic,
+        modalVisible,
+        setTopic: (value) => {
+            setTopic(value);
+            setModalVisible(false);
+        },
+        title,
+        setTitle,
+        text,
+        setText,
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+        region,
+        setRegion,
+        images,
+        setImages,
+        type,
+        navigation,
     };
 
     return (
-        PostView(
-            onSubmit,
-            user,
-            setModalVisible,
-            topic,
-            modalVisible,
-            (value) => {
-                setTopic(value);
-                setModalVisible(false);
-            },
-            title,
-            setTitle,
-            text,
-            setText,
-            startDate,
-            endDate,
-            setStartDate,
-            setEndDate,
-            region,
-            setRegion,
-            images,
-            setImages,
-            type,
-        )
+        <PostView {...passedProps} />
     );
 };

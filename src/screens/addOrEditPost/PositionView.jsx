@@ -8,7 +8,6 @@ import {
   Button,
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import { Actions } from 'react-native-router-flux';
 import {CurriedBackToInitBtn} from "../../component/BackToInitBtn";
 
 const { width, height } = Dimensions.get('window');
@@ -21,7 +20,7 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 // 設定地圖座標的頁面
-export default function PositionView({region,setRegion}){
+export default function PositionView({ route: { params: { region, setRegion } }, navigation }){
   const initalRegion = {
     latitude: LATITUDE,
     longitude: LONGITUDE,
@@ -40,13 +39,15 @@ export default function PositionView({region,setRegion}){
   const BackToInitBtn = CurriedBackToInitBtn({bottom:0,right:0});
   const clearMarker = ()=>setMarker({});
   const onMapPress = (e) => setMarker({coordinate: e.nativeEvent.coordinate})
-  const onBackPress = ()=>Actions.pop()
+  const onBackPress = () => navigation.goBack();
   const onSubmit = ()=> {
     ("coordinate" in marker)
       ? setRegion(marker.coordinate)
       : setRegion({})
-    Actions.pop()
+
+    navigation.goBack();
   }
+
   return (
     <View style={styles.container}>
         <BackToInitBtn mapRef={mapRef} initalRegion={initalRegion} />

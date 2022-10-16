@@ -10,7 +10,6 @@ import {
 // import fakeDatas from './test/fakeDatas'
 
 import MapView, { Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import { Actions } from 'react-native-router-flux';
 import {CurriedBackToInitBtn} from "../component/BackToInitBtn";
 import PostMarker from '../component/PostMarker'
 import {typeIdToImgSrc} from '../helper/helper'

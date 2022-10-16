@@ -3,7 +3,6 @@ import React, { useMemo,useCallback, useEffect, useRef, useState, useReducer } f
 import { Vibration, Alert, AppState, View } from 'react-native';
 import Routes from './src/Routes';
 import MyToken from './src/model/MyToken';
-import { Actions } from 'react-native-router-flux';
 import { Notifications } from 'expo';
 import { getCurrentUserASync } from './src/helper/helper.js'
 import AppDBHelper from './src/helper/AppDBHelper'
@@ -13,6 +12,7 @@ import AuthContextStore from './src/authContext'
 import authReducer from './src/authReducer'
 import {registerBackgroundTask,getBackgroundStatusAsync} from './src/task'
 import { parserText } from './src/component/renderParserText';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
     const [authState, authDispatch] = useReducer(authReducer,null)
@@ -42,28 +42,15 @@ export default function App() {
                 // else setCheckLoginFinishi(true)
             })
             .catch(err=>{authDispatch({type: 'init'})})
-    }, [])
+    }, []);
 
-    // authState redirect effect 根據登入狀態跳轉頁面，只要APP有動作改變了登入狀態就會執行
-    useEffect(() => {
-        if(!authState)return;
-        const checkIsLogin = (authState.userId == '')
-        if(checkIsLogin)return Actions.reset('login');
-        Actions.replace('home')
-    }, [authState])
-
-
-    // useMemo感覺是多餘的不用用到(?
-    const isLoginInitailRoute = useMemo(
-        () => ()=>(authState == null || authState.userId == ''),
-        [authState],
-    )
-    console.log('isLoginInitailRoute()')
-    console.log(isLoginInitailRoute())
-    // const isLoginInitailRoute = (authState?.userId == '')
-    return <AuthContextStore.Provider value={[authState, authDispatch]}>
-        {!authState ? <View/> : <Routes isLoginInitailRoute={isLoginInitailRoute()}/>}
-    </AuthContextStore.Provider>
+    return (
+        <NavigationContainer>
+            <AuthContextStore.Provider value={[authState, authDispatch]}>
+                {!authState ? <View /> : <Routes isLoggedin={!authState.userId}/>}
+            </AuthContextStore.Provider>
+        </NavigationContainer>
+    );
 };
 
 // 通知相關操作，最近從expo37升級到expo38有可能不能用了
@@ -143,7 +130,7 @@ function useNotification(authState, userIdRef, tokenRef) {
             // Notifications.dismissNotificationAsync(notification.notificationId);
             // } else {
             Vibration.vibrate();
-            Actions.push('postShow', { postId: notification?.data?.postId });
+            // Actions.push('postShow', { postId: notification?.data?.postId });
             // }
         };
         const listener = Notifications.addListener(handleNotification);

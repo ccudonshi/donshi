@@ -5,13 +5,12 @@ import PostItem from '../component/PostItem'
 import onScrollEnd from '../helper/onScrollEnd'
 import { useEffect } from 'react';
 import AppDBHelper from '../helper/AppDBHelper';
-import { Actions } from 'react-native-router-flux';
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-paper';
 
 
 // 搜尋貼文 的頁面
-export default function QueryScreen() {
+export default function QueryScreen({ navigation }) {
     const isNeed = false;
     const [queryText, setQuerytext] = useState('')
     const [queryData, setQueryData] = useState([])
@@ -37,7 +36,7 @@ export default function QueryScreen() {
     return (
         <View style={styles.background}>
             <View style={{ marginTop: 20, marginBottom: 10 }}>
-                <TouchableOpacity style={styles.iconStyle} onPress={() => Actions.pop()}>
+                <TouchableOpacity style={styles.iconStyle} onPress={() => navigation.goBack()}>
                     <AntDesign color='#7c7c7c' name='left' size={24}></AntDesign>
                 </TouchableOpacity>
                 <TextInput
