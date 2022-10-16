@@ -47,7 +47,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <AuthContextStore.Provider value={[authState, authDispatch]}>
-                {!authState ? <View/> : <Routes isLoginInitailRoute={authState == null || authState.userId == ''}/>}
+                {!authState ? <View /> : <Routes isLoggedin={!authState.userId}/>}
             </AuthContextStore.Provider>
         </NavigationContainer>
     );
