@@ -1,14 +1,34 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { TextInput, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ChooseTopicBox from '../../component/ChooseTopicBox';
 import ChooseList from './ChooseList';
 // 新增/修改貼文的頁面UI
-export default function PostView(onSubmit, user, setModalVisible, topic, modalVisible, setTopic, title, setTitle, text, setText, startDate, endDate, setStartDate, setEndDate, region, setRegion, images, setImages, type) {
+export default function PostView({
+    onSubmit,
+    user,
+    setModalVisible,
+    topic,
+    modalVisible,
+    setTopic,
+    title,
+    setTitle,
+    text,
+    setText,
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
+    region,
+    setRegion,
+    images,
+    setImages,
+    type,
+    navigation,
+}) {
     return <View style={styles.background}>
         <View style={styles.top}>
-            <TouchableOpacity onPress={() => Actions.pop()}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Text style={styles.fontBlue}>取消</Text>
             </TouchableOpacity>
 
@@ -83,6 +103,7 @@ export default function PostView(onSubmit, user, setModalVisible, topic, modalVi
 
             <View style={styles.listContainer}>
                 <ChooseList
+                    navigation={navigation}
                     startDate={startDate}
                     endDate={endDate}
                     setStartDate={setStartDate}
@@ -90,7 +111,8 @@ export default function PostView(onSubmit, user, setModalVisible, topic, modalVi
                     region={region}
                     setRegion={setRegion}
                     images={images}
-                    setImages={setImages} />
+                    setImages={setImages}
+                />
             </View>
 
 

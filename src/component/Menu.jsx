@@ -8,11 +8,9 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import { Dialog } from 'react-native-simple-dialogs';
 import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
 import { ScrollView, } from 'react-native-gesture-handler';
-import { Actions } from 'react-native-router-flux';
 import AppDBHelper from '../helper/AppDBHelper';
 
 // let SCREEN_WIDTH = Dimensions.get('window').width;//宽
@@ -29,10 +27,7 @@ export default class Menu extends Modal {
         this.topicList = [
             {
                 title: '編輯貼文',
-                func: () => {
-                    this.props.setModalVisible(false);
-                    Actions.push('editPost', { post: this.props.editPost })
-                }
+                func: this.props.onEdit,
             },
             {
                 title: '刪除貼文',
@@ -81,8 +76,7 @@ export default class Menu extends Modal {
         manager.deletePost(this.props.editPost.getId())
             .then(res => {
                 if (res.succeess) {
-                    this.props.setModalVisible(false)
-                    Actions.replace('home', { refresh: {} })
+                    this.props.setModalVisible(false);
                 }
                 else Alert.alert('警告：沒有刪除成功，請聯絡管理員')
             })

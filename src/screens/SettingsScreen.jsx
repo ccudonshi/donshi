@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
-import { Actions } from 'react-native-router-flux';
 import MyToken from '../model/MyToken'
 import User from '../model/User';
 import { cancelable } from 'cancelable-promise';
@@ -9,7 +8,7 @@ import { AntDesign } from '@expo/vector-icons';
 import AuthContextStore from '../authContext'
 
 // 設定 的頁面 (在個人頁面裡面可連結到)
-export default function SettingsPage() {
+export default function SettingsPage({ navigation }) {
 
     const [user, setUser] = useState(new User());
     const [authState, authDispatch] = useContext(AuthContextStore);
@@ -29,7 +28,7 @@ export default function SettingsPage() {
 
     return (
         <View style={styles.background}>
-            <TouchableOpacity style={styles.iconStyle} onPress={() => Actions.pop()}>
+            <TouchableOpacity style={styles.iconStyle} onPress={() => navigation.goBack()}>
                 <AntDesign color='#7c7c7c' name='left' size={24}></AntDesign>
             </TouchableOpacity>
             {/* <Button

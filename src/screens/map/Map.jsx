@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState, useRef } from 'react'
 import { Asset } from 'expo-asset';
 import { Animated, Dimensions, View } from 'react-native'
@@ -7,7 +6,6 @@ import { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE i
 import PostMarker from '../../component/PostMarker'
 import { typeIdToImgSrc } from '../../helper/helper'
 import { mapStyles } from './styles'
-import { Actions } from 'react-native-router-flux';
 import { BackToInitBtn } from "../../component/BackToInitBtn";
 import PostsModal from '../../component/PostsModal'
 import PostItem from "../../component/PostItem";
@@ -113,13 +111,3 @@ export default function Map({ animateTranform, displayData, isSideBarDisplay, di
         </Animated.View>
     )
 }
-
-Map.propTypes = {
-    animateTranform: PropTypes.any,
-    displayData: PropTypes.any,
-    displayClick: PropTypes.any,
-    isSideBarDisplay: PropTypes.any
-}
-
-
-

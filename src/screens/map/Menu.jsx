@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from 'react'
 import { Image } from "react-native";
 import { Text, View, TouchableOpacity, Dimensions } from 'react-native'
@@ -29,14 +28,6 @@ export default function Menu({ displayStatus, types, isDisplay, changeDisplaySta
     )
 }
 
-Menu.propTypes = {
-    changeDisplayStatus: PropTypes.any,
-    displayClick: PropTypes.any,
-    displayStatus: PropTypes.any,
-    isDisplay: PropTypes.any,
-    types: PropTypes.any
-}
-
 // 開Menu按鈕
 function ActiveBtn({ displayClick }) {
     const ActiveBtnStyle = {
@@ -60,9 +51,6 @@ function ActiveBtn({ displayClick }) {
             onPress={displayClick}
             imgSrc={require('app/assets/right_arrow.png')} />
     )
-}
-ActiveBtn.propTypes = {
-    displayClick: PropTypes.any
 }
 
 function MenuList({ types, displayClick, displayStatus, changeDisplayStatus }) {
@@ -111,12 +99,6 @@ function MenuList({ types, displayClick, displayStatus, changeDisplayStatus }) {
         </View>
     )
 }
-MenuList.propTypes = {
-    changeDisplayStatus: PropTypes.any,
-    displayClick: PropTypes.any,
-    displayStatus: PropTypes.any,
-    types: PropTypes.any
-}
 
 function MenuBtn({ MyIcon, value, index, changeDisplayStatus, displayStatus }) {
     const menuBtnStyle = {
@@ -164,15 +146,6 @@ function MenuBtn({ MyIcon, value, index, changeDisplayStatus, displayStatus }) {
         </TouchableOpacity>
     )
 }
-MenuBtn.propTypes = {
-    changeDisplayStatus: PropTypes.func,
-    displayStatus: PropTypes.any,
-    index: PropTypes.number,
-    value: PropTypes.shape({
-        key: PropTypes.any,
-        title: PropTypes.any
-    })
-}
 
 // 關Menu按鈕
 function CloseBtn({ displayClick }) {
@@ -195,7 +168,4 @@ function CloseBtn({ displayClick }) {
             onPress={displayClick}
             imgSrc={require('app/assets/left_arrow.png')} />
     )
-}
-CloseBtn.propTypes = {
-    displayClick: PropTypes.any
 }

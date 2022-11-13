@@ -9,7 +9,6 @@ import end from 'app/assets/end_clock.png'
 import location from 'app/assets/location.png'
 import image from 'app/assets/image.png'
 import { formatDate } from "../../helper/helper";
-import { Actions } from "react-native-router-flux";
 
 // 新增/修改貼文的頁面中需填入的表單
 /**
@@ -24,7 +23,7 @@ const Item = ({ item, onPress, style }) => (
   </TouchableOpacity>
 );
 
-const ChooseList = ({ startDate,endDate,setStartDate, setEndDate,region,setRegion,images,setImages}) => {
+const ChooseList = ({ navigation, startDate,endDate,setStartDate, setEndDate,region,setRegion,images,setImages}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
   const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
@@ -47,9 +46,9 @@ const ChooseList = ({ startDate,endDate,setStartDate, setEndDate,region,setRegio
     hideEndDatePicker();
   };
 
-  const goToPosionView = ()=> Actions.push('position',{region,setRegion});
+  const goToPosionView = () => navigation.navigate('Position', { region, setRegion } );
   
-  const addImages = ()=>Actions.imgBrowser({setImages,MAXLIMIT:4})
+  const addImages = () => navigation.navigate('ImgBrowser', { setImages, MAXLIMIT: 4 })
 
 
   const DATA = [

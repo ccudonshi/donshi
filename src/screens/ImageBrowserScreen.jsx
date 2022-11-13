@@ -4,16 +4,15 @@ import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, StatusBar,
 import * as ImageManipulator from 'expo-image-manipulator';
 import {ImageBrowser} from '../lib/expo-image-picker-multiple';
 // import {ImageBrowser} from 'expo-image-picker-multiple';
-import { Actions } from 'react-native-router-flux';
 import { set } from 'date-fns';
 // 用來選擇照片的頁面
-export default function ImageBrowserScreen({setImages,MAXLIMIT}){
+export default function ImageBrowserScreen({ route: { params: { setImages, MAXLIMIT } }, navigation }){
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState(`請選擇照片，最多${MAXLIMIT}張`)
     const [files, setFiles] = useState([])
     const onSubmit = ()=>{
       setImages(files); 
-      Actions.pop();
+      navigation.goBack();
     }    
 
     const updateHandler = (count) => {setTitle(`已選擇${count}個檔案`)};
@@ -52,7 +51,12 @@ export default function ImageBrowserScreen({setImages,MAXLIMIT}){
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
     return (
     <View style={[styles.flex, styles.container]}>
-        <NavBar loading={loading} title={title} onSubmit={onSubmit}/>
+        <NavBar
+          loading={loading}
+          title={title}
+          onSubmit={onSubmit}
+          navigation={navigation}
+        />
         <ImageBrowser
             max={MAXLIMIT}
             onChange={updateHandler}
@@ -65,12 +69,12 @@ export default function ImageBrowserScreen({setImages,MAXLIMIT}){
 }
 
 
-function NavBar({loading,title,onSubmit}){
+function NavBar({ loading, title, onSubmit, navigation }){
   return(
           <View>
               <StatusBar/>
                   <View style={navBarStyle.container}>
-                      <TouchableOpacity style={navBarStyle.leftBtn} onPress={() => Actions.pop()}>
+                      <TouchableOpacity style={navBarStyle.leftBtn} onPress={() => navigation.goBack()}>
                           <Image
                               source={require('app/assets/back.png')}
                               style={navBarStyle.backarrowStyle} />
