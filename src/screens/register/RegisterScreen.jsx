@@ -18,6 +18,7 @@ export default function RegisterScreen({ route: { params: { googleIdToken, accou
     const [gender, setGender] = useState('')
     const [birthday, setBirthday] = useState('');
     const [phone, setPhone] = useState('')
+    const [hasUserTicket, setHasUserTicket] = useState(false);
     const [step, setStep] = useState(0)
     const [isSubmitClick, setIsSubmitClick] = useState(false)
     const [pickImage,image,hasError] = useImagePick();
@@ -27,7 +28,14 @@ export default function RegisterScreen({ route: { params: { googleIdToken, accou
         setIsSubmitClick(false)
         
         async function goRegister(){
-            const user = new User({account,username,gender,birthday,phone})
+            const user = new User({
+                account,
+                username,
+                gender,
+                birthday,
+                phone,
+                hasUserTicket,
+            });
             const manager = await AppDBHelper();
             await manager.register(user,image,googleIdToken);
 
@@ -49,8 +57,15 @@ export default function RegisterScreen({ route: { params: { googleIdToken, accou
     const onSubmitClick = ()=>setIsSubmitClick(true); 
     const onBackStep = ()=>setStep(preStep=>preStep-1);
     const onNextStep = ()=>{
-        if(username === '' || username === undefined || username === null) 
-            return Alert.alert("暱稱未填寫")
+        if(!username) {
+            return Alert.alert('暱稱未填寫');
+        } else if (!gender) {
+            return Alert.alert('性別未填寫');
+        } else if (!birthday) {
+            return Alert.alert('生日未填寫');
+        } else if (!phone) {
+            return Alert.alert('手機號碼未填寫');
+        }
         setStep(preStep=>preStep+1)
     };
 
@@ -59,6 +74,7 @@ export default function RegisterScreen({ route: { params: { googleIdToken, accou
         gender,setGender,
         birthday, setBirthday,
         phone, setPhone,
+        hasUserTicket, setHasUserTicket,
         onNextStep
     }
     const secondProps={
