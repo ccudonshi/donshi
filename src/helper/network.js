@@ -49,12 +49,12 @@ export default class Network{
  
   static errHandler(error) {
     console.log("get Error!!!!!!!!")
-    console.log(typeof error)
+    console.log('error type: ', typeof error)
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.log(error.response.data);
-      console.log(error.response.status);
+      console.log('response data: ', error.response.data);
+      console.log('response status: ', error.response.status);
       switch (error.response.status) {
         case 401:
             console.log('Not Login !')
@@ -63,17 +63,17 @@ export default class Network{
         default:
           break;
       }
-      console.log(error.response.headers);
+      console.log('response headers: ', error.response.headers);
     } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
-      console.log(error.request);
+      console.log('request: ', error.request);
     } else {
       // Something happened in setting up the request that triggered an Error
       console.log('Error', error.message);
     }
-    console.log(error.config);
+    console.log('config: ', error.config);
     
     return Promise.reject(error)
   }
