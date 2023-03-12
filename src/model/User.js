@@ -11,7 +11,7 @@ export default class User {
     phone;
     role; // 0: 管理者 , 1: 一般使用者 前端有這個資訊好像沒有用
     pictureUrl;
-    userTicket;
+    hasUserTicket;
     constructor(options = {}) {
         Object.assign(this, options);
 
@@ -77,6 +77,6 @@ export default class User {
     }
 
     getHasUserTicket() {
-        return !!this.userTicket?.hasUserTicket;
+        return !!this.hasUserTicket;
     }
 }

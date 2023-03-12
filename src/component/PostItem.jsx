@@ -85,7 +85,7 @@ export default class PostItem extends Component {
                                     {this.props.post.getPostTime()}
                                 </Text>
                             </View>
-                            {this.props.post.getAuthor().userTicket?.hasUserTicket ? (
+                            {this.props.post.getAuthor().hasUserTicket ? (
                                 <Image style={styles.img} source={require('app/assets/clover.png')} />
                             ) : null}
                         </View>

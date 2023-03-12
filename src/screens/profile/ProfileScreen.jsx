@@ -181,7 +181,7 @@ export default function ProfileScreen({ route, navigation }) {
                     style={{ marginLeft: 25 }}
                     onPress={() => {
                         const newUser = new User(myUser);
-                        newUser.userTicket = { hasUserTicket: !myUser.getHasUserTicket() };
+                        newUser.hasUserTicket = !myUser.getHasUserTicket();
                         setMyUser(newUser);
                     }}
                 >
