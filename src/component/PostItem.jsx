@@ -71,13 +71,9 @@ export default class PostItem extends Component {
         const pictureUrl = this.props.post.getAuthor().getPictureUrl();
         return (
             <View>
-
                 <View style={styles.radius_shadow}>
-
                     <View style={styles.postItemContainer}>
-
                         <View style={styles.proPicContainer}>
-
                             <Image style={styles.img} source={
                                 (pictureUrl == '' || pictureUrl == undefined)
                                     ? require('app/assets/profile.png')
@@ -89,6 +85,9 @@ export default class PostItem extends Component {
                                     {this.props.post.getPostTime()}
                                 </Text>
                             </View>
+                            {this.props.post.getAuthor().userTicket?.hasUserTicket ? (
+                                <Image style={styles.img} source={require('app/assets/clover.png')} />
+                            ) : null}
                         </View>
 
 
@@ -106,7 +105,7 @@ export default class PostItem extends Component {
                                         }}
                                     />
                                     <TouchableOpacity onPress={() => this.setModalVisible(true)}>
-                                        <MaterialCommunityIcons style={styles.iconStyle} name='dots-vertical' size={24}></MaterialCommunityIcons>
+                                        <MaterialCommunityIcons style={styles.iconStyle} name='dots-vertical' size={24} />
                                     </TouchableOpacity>
                                 </>
                             )}
