@@ -21,6 +21,7 @@ import {
     EditProfileImage
 } from "./EditComponets";
 import { useSocketIOInNavigation } from '../../component/useSocketIO';
+import { Divider } from 'react-native-paper';
 
 function SwitchEditModal({ editType, myUser, setMyUser, closeModal }) {
     switch (editType) {
@@ -77,9 +78,6 @@ export default function ProfileScreen({ route, navigation }) {
     const info = myUser.getIntroduction();
     const gender = myUser.getGender();
 
-
-
-
     useFocusEffect(
         useCallback(() => {
             const updateUser = async () => {
@@ -110,7 +108,7 @@ export default function ProfileScreen({ route, navigation }) {
                 const infoList = await manager.getMyPosts(false)
                 const needList = await manager.getMyPosts(true)
                 const totalList = [infoList, needList].flat();
-                await setPostList(totalList);
+                setPostList(totalList);
             }
 
             let fetchPromise = cancelable(
@@ -125,9 +123,6 @@ export default function ProfileScreen({ route, navigation }) {
         }, [isUpdateUser])
     );
 
-
-
-
     useFocusEffect(
         useCallback(() => {
             const fetchData = async () => {
@@ -136,8 +131,8 @@ export default function ProfileScreen({ route, navigation }) {
                 const infoList = await manager.getMyPosts(false)
                 const needList = await manager.getMyPosts(true)
                 const totalList = [infoList, needList].flat();
-                await setMyUser(myUser);
-                await setPostList(totalList);
+                setMyUser(myUser);
+                setPostList(totalList);
             }
 
             let fetchPromise = cancelable(
@@ -156,13 +151,9 @@ export default function ProfileScreen({ route, navigation }) {
         <SafeAreaView style={styles.container}>
             <SwitchEditModal editType={editType} myUser={myUser} setMyUser={setMyUser} closeModal={closeModal} />
 
-
-
             <ScrollView showsVerticalScrollIndicator={false}>
-
                 {/* 大頭貼 */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 15 }}>
-
                     <View style={{ marginBottom: 10, marginLeft: 20, flexDirection: 'row', alignItems: 'center' }}>
                         <View style={styles.profileImage}>
                             {
@@ -186,21 +177,26 @@ export default function ProfileScreen({ route, navigation }) {
 
                     <MaterialCommunityIcons onPress={() => navigation.navigate('Settings')} name="cog" style={{ color: '#7c7c7c', marginRight: 30, }} size={30} />
                 </View>
-
-
-
-
-
-
-                {
-                    <TouchableOpacity onPress={editInfo}>
-                        <View style={styles.selfIntro}>
-                            <Text style={{ color: '#7B7B7B', fontSize: 15 }}>{(info !== '') ? info : '無'}</Text>
-                        </View>
-                    </TouchableOpacity>
-                }
-
-
+                <TouchableOpacity
+                    style={{ marginLeft: 25 }}
+                    onPress={() => {
+                        const newUser = new User(myUser);
+                        newUser.hasUserTicket = !myUser.getHasUserTicket();
+                        setMyUser(newUser);
+                    }}
+                >
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Image style={{ marginRight: 10 }} source={myUser.getHasUserTicket() ? require('app/assets/clover.png') : require('app/assets/clover-gray.png')} />
+                        <Text>{`我${myUser.getHasUserTicket() ? '有' : '沒有'}好時券`}</Text>
+                    </View>
+                </TouchableOpacity>
+                <Divider style={{ marginHorizontal: 25, marginVertical: 5 }} />
+                <Text style={{ marginLeft: 25, fontSize: 15, fontWeight: 'bold' }}>自我介紹</Text>
+                <TouchableOpacity onPress={editInfo}>
+                    <View style={styles.selfIntro}>
+                        <Text style={{ color: '#7B7B7B', fontSize: 15 }}>{(info !== '') ? info : '無'}</Text>
+                    </View>
+                </TouchableOpacity>
                 {/* 資訊欄 */}
                 <ScrollView style={styles.statsContainer} horizontal='true' showsHorizontalScrollIndicator={false}>
                     <View style={styles.infoBox}>
