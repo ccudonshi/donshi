@@ -91,7 +91,7 @@ export default async function AppDBHelper(){
                  * @param  {String} userId
                  * @param  {Boolean} isNeed
                  */
-                getUserPosts:(userId,isNeed)                =>  apis.UserApi.getUserPosts(userId,processIsNeed(isNeed)),
+                getUserPosts:(userId,isNeed)                =>  apis.PostApi.getUserPosts(userId,processIsNeed(isNeed)),
                 
                 /**
                  * @param  {String} search
@@ -102,7 +102,7 @@ export default async function AppDBHelper(){
                 /**
                  * @param  {Boolean} isNeed
                  */
-                getMyPosts:(isNeed)                         =>  apis.UserApi.getMyPosts(processIsNeed(isNeed)),
+                getMyPosts:(isNeed)                         =>  apis.PostApi.getMyPosts(processIsNeed(isNeed)),
                 
                 getMyInfo:()                                =>  apis.UserApi.getUser(),                                
                 
@@ -181,11 +181,6 @@ export default async function AppDBHelper(){
                 getTypes:()                                 =>  apis.TypeApi.getTypes(),
                 
                 /**
-                 * 取得所有小主題
-                 */
-                getTopics:()                                =>  apis.TopicApi.getTopics(),
-                
-                /**
                  * @param  {int} typeId
                  */
                 getTopicsWithType:(typeId)                  =>  apis.TopicApi.getTopicsWithType(typeId),
@@ -202,12 +197,7 @@ export default async function AppDBHelper(){
                 addTopic:(typeId,topicName)                 =>  apis.TopicApi.addTopic(typeId,topicName),
                 
                 checkTokExp:()                              =>  apis.UtilApi.checkTokExp().then(data=>(data.success)?refreshTok(data):data),
-       
-                /**
-                 * @param  {String} account 
-                 */
-                login:(account)                             =>  apis.UserApi.login(account)
-                                                                        .then(data=>refreshTok(data)),
+
                 /**
                  * @param  {String} googleIdToken 
                  */
@@ -215,7 +205,7 @@ export default async function AppDBHelper(){
                                                                         .then(data=>(data.success)
                                                                                         ? refreshTok(data)
                                                                                         : Promise.resolve(data)),
-                
+
                 /**
                  * @param  {User} user
                  * @param  {Object{uri}} image
