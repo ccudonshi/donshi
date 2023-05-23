@@ -4,7 +4,7 @@ import Config from '../../Config'
 import Comment from '../model/Comment';
 import Post from '../model/Post';
 import Reply from '../model/Reply';
-const { APIKEY, BASEURL,HOST } = Config
+const { APIKEY, HOST } = Config
 
 export default class MySocketFactory{
     static #socket;
