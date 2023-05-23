@@ -75,12 +75,14 @@ export default class Menu extends Modal {
         const manager = await AppDBHelper();
         manager.deletePost(this.props.editPost.getId())
             .then(res => {
-                if (res.succeess) {
+                if (res.success) {
                     this.props.setModalVisible(false);
-                }
-                else Alert.alert('警告：沒有刪除成功，請聯絡管理員')
+                } else Alert.alert('警告：沒有刪除成功，請聯絡管理員');
             })
-            .catch(() => Alert.alert('警告：沒有刪除成功，請聯絡管理員'))
+            .catch((error) =>{
+                console.log('Delete Post Error: ', error);
+                Alert.alert('警告：沒有刪除成功，請聯絡管理員');
+            });
     }
     onPress(func) {
         return () => func()
