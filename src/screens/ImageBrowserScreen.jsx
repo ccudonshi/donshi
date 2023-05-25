@@ -1,71 +1,79 @@
 
-import React, { Component,useState,useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, StatusBar, Image, ActionSheetIOS } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
-import {ImageBrowser} from '../lib/expo-image-picker-multiple';
-// import {ImageBrowser} from 'expo-image-picker-multiple';
-import { set } from 'date-fns';
+import ImageBrowser from '../component/ImageBrowser';
+
 // 用來選擇照片的頁面
-export default function ImageBrowserScreen({ route: { params: { setImages, MAXLIMIT } }, navigation }){
-    const [loading, setLoading] = useState(false)
-    const [title, setTitle] = useState(`請選擇照片，最多${MAXLIMIT}張`)
-    const [files, setFiles] = useState([])
-    const onSubmit = ()=>{
+export default function ImageBrowserScreen({ route: { params: { setImages, MAXLIMIT } }, navigation }) {
+  const prepareCallbackRef = useRef(async () => [])
+
+  const [loading, setLoading] = useState(false)
+  const [title, setTitle] = useState(`請選擇照片，最多${MAXLIMIT}張`)
+
+  const _processImageAsync = async(uri) => {
+    const file = await ImageManipulator.manipulateAsync(
+      uri,
+      [{resize: { width: 1000 }}],
+      { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
+    );
+    return file;
+  }
+
+  const onSubmit = async () => {
+    setLoading(true);
+
+    try {
+      const images = await prepareCallbackRef.current();
+
+      const files = [];
+      for(let image of images) {
+        const pPhoto = await _processImageAsync(image.uri);
+        files.push({
+          uri: pPhoto.uri,
+          name: image.filename,
+          type: 'image/jpg'
+        })
+      }
+
       setImages(files); 
       navigation.goBack();
-    }    
-
-    const updateHandler = (count) => {setTitle(`已選擇${count}個檔案`)};
-    const _processImageAsync = async(uri)=>{
-        const file = await ImageManipulator.manipulateAsync(
-          uri,
-          [{resize: { width: 1000 }}],
-          { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
-        );
-        return file;
+    } catch (error) {
+      console.error('Upload Images error: ', error);
     }
-    const imagesCallback = (callback) => {
-        
-        setLoading(true)
-        callback.then(async(photos) => {
-            console.log('callback')
-            const cPhotos = [];
-            for(let photo of photos) {
-                const pPhoto = await _processImageAsync(photo.uri);
-                cPhotos.push({
-                uri: pPhoto.uri,
-                name: photo.filename,
-                type: 'image/jpg'
-                })
-            }
-            setFiles(cPhotos);
-        })
-        .catch((e) => console.log(e))
-        .finally(() => setLoading(false));
-      };
-    const  renderSelectedComponent = (number) => (
-        <View style={styles.countBadge}>
-          <Text style={styles.countBadgeText}>{number}</Text>
-        </View>
-    );
-    const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
-    return (
+
+    setLoading(false);
+  }    
+
+  const updateHandler = (count, prepareCallback) => {
+    setTitle(`已選擇${count}個檔案`);
+    prepareCallbackRef.current = prepareCallback;
+  }
+
+  const  renderSelectedComponent = (number) => (
+      <View style={styles.countBadge}>
+        <Text style={styles.countBadgeText}>{number}</Text>
+      </View>
+  );
+
+  const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
+
+  return (
     <View style={[styles.flex, styles.container]}>
-        <NavBar
-          loading={loading}
-          title={title}
-          onSubmit={onSubmit}
-          navigation={navigation}
-        />
-        <ImageBrowser
-            max={MAXLIMIT}
-            onChange={updateHandler}
-            callback={imagesCallback}
-            renderSelectedComponent={renderSelectedComponent}
-            emptyStayComponent={emptyStayComponent}
-        />
+      <NavBar
+        loading={loading}
+        title={title}
+        onSubmit={onSubmit}
+        navigation={navigation}
+      />
+      <ImageBrowser
+        max={MAXLIMIT}
+        onChange={updateHandler}
+        renderSelectedComponent={renderSelectedComponent}
+        emptyStayComponent={emptyStayComponent}
+      />
     </View>
-    );
+  );
 }
 
 

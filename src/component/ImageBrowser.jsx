@@ -5,18 +5,25 @@ import {
   FlatList,
   Dimensions,
   ActivityIndicator,
+  Alert,
 } from 'react-native'
 import * as ScreenOrientation from 'expo-screen-orientation';
 import * as MediaLibrary from 'expo-media-library'
-import * as Permissions from 'expo-permissions'
 import ImageTile from './ImageTile'
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class ImageBrowser extends React.Component {
+  static defaultProps = {
+    loadCompleteMetadata: false,
+    loadCount: 50,
+    emptyStayComponent: null,
+    preloaderComponent: <ActivityIndicator size='large'/>,
+    mediaType: [MediaLibrary.MediaType.photo]
+  }
+
   state = {
-    hasCameraPermission: null,
-    hasCameraRollPermission: null,
+    hasCameraPermission: false,
     numColumns: null,
     photos: [],
     selected: [],
@@ -33,17 +40,17 @@ export default class ImageBrowser extends React.Component {
     this.setState({numColumns});
     this.getPhotos();
   }
-  componentWillUnmount() {
-    ScreenOrientation.removeOrientationChangeListeners()
-  }
-  
+
   getPermissionsAsync = async () => {
-    const {status: camera} = await Permissions.askAsync(Permissions.CAMERA);
-    const {status: cameraRoll} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    this.setState({
-      hasCameraPermission: camera === 'granted',
-      hasCameraRollPermission: cameraRoll === 'granted'
-    });
+    let resultStatus = 'undetermined';
+
+    resultStatus = (await MediaLibrary.getPermissionsAsync()).status;
+    if (resultStatus !== 'granted') resultStatus = (await MediaLibrary.requestPermissionsAsync()).status;
+
+    console.log('MediaLibrary Permission: ', resultStatus);
+
+    if (resultStatus === 'granted') this.setState({ hasCameraPermission: true });
+    else Alert.alert('權限不足', '需要您的媒體存取權限！');
   }
 
   onOrientationChange = ({orientationInfo}) => {
@@ -54,8 +61,8 @@ export default class ImageBrowser extends React.Component {
   }
 
   getNumColumns = orientation => {
-    const isPortrait = orientation === ScreenOrientation.Orientation.PORTRAIT_UP ||
-      orientation === ScreenOrientation.Orientation.PORTRAIT_DOWN;
+    const {PORTRAIT_UP, PORTRAIT_DOWN} = ScreenOrientation.Orientation;
+    const isPortrait = orientation === PORTRAIT_UP || orientation === PORTRAIT_DOWN;
     return isPortrait ? 4 : 7;
   }
 
@@ -70,15 +77,15 @@ export default class ImageBrowser extends React.Component {
     if (newSelected.length > this.props.max) return;
     if (!newSelected) newSelected = []; 
     this.setState({selected: newSelected}, () =>{
-      this.props.onChange(newSelected.length, this.prepareCallback());
+      this.props.onChange(newSelected.length, () => this.prepareCallback());
     });
   }
 
   getPhotos = () => {
     const params = {
-      first: this.props.loadCount || 50,
-      assetType: 'Photos',
-      sortBy: ['creationTime']
+      first: this.props.loadCount,
+      mediaType: this.props.mediaType,
+      sortBy: [MediaLibrary.SortBy.creationTime]
     };
     if (this.state.after) params.after = this.state.after;
     if (!this.state.hasNextPage) return;
@@ -107,10 +114,15 @@ export default class ImageBrowser extends React.Component {
   }
 
   prepareCallback() {
+    const { loadCompleteMetadata } = this.props;
     const { selected, photos } = this.state;
     const selectedPhotos = selected.map(i => photos[i]);
-    const assetsInfo = Promise.all(selectedPhotos);
-    this.props.callback(assetsInfo);
+    if (!loadCompleteMetadata){
+      return Promise.all(selectedPhotos);
+    } else {
+      const assetsInfo = Promise.all(selectedPhotos.map(i => MediaLibrary.getAssetInfoAsync(i)));
+      return assetsInfo;
+    }
   }
 
   renderImageTile = ({item, index}) => {
@@ -124,13 +136,14 @@ export default class ImageBrowser extends React.Component {
         selected={selected}
         selectImage={this.selectImage}
         renderSelectedComponent={this.props.renderSelectedComponent}
+        renderExtraComponent={this.props.renderExtraComponent}
       />
-    )
+    );
   }
 
-  renderPreloader = () =>  this.props.preloaderComponent || <ActivityIndicator size="large"/>;
+  renderPreloader = () => this.props.preloaderComponent;
 
-  renderEmptyStay = () =>  this.props.emptyStayComponent || null;
+  renderEmptyStay = () => this.props.emptyStayComponent;
 
   renderImages() {
     return (
@@ -140,21 +153,18 @@ export default class ImageBrowser extends React.Component {
         key={this.state.numColumns}
         renderItem={this.renderImageTile}
         keyExtractor={(_, index) => index}
-        onEndReached={() => {this.getPhotos()}}
+        onEndReached={() => this.getPhotos()}
         onEndReachedThreshold={0.5}
         ListEmptyComponent={this.state.isEmpty ? this.renderEmptyStay() : this.renderPreloader()}
         initialNumToRender={24}
         getItemLayout={this.getItemLayout}
       />
-    )
+    );
   }
 
   render() {
     const {hasCameraPermission} = this.state;
-
-    if (!hasCameraPermission) {
-      return this.props.noCameraPermissionComponent || null;
-    }
+    if (!hasCameraPermission) return this.props.noCameraPermissionComponent || null;
 
     return (
       <View style={styles.container}>
@@ -168,4 +178,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-})
+});
