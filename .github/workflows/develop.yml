@@ -29,10 +29,8 @@ jobs:
           echo "${{ secrets.TEMP_CONFIG_JS }}" > ./Config.js
           echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./google-services.json
           echo '${{ secrets.GOOGLE_SERVICE_PLIST }}' > ./GoogleService-Info.plist
-          sed -i.backup 's/RESERVED_CLIENT_ID/${{ secrets.RESERVED_CLIENT_ID }}/' app.json
           sed -i.backup 's/IOS_GOOGLE_MAPS_API_KEY/${{ secrets.IOS_GOOGLE_MAPS_API_KEY }}/' app.json
           sed -i.backup 's/ANDROID_API_KEY/${{ secrets.ANDROID_API_KEY }}/' app.json
-          sed -i.backup 's/ANDROID_CERTIFICATE_HASH/${{ secrets.ANDROID_CERTIFICATE_HASH }}/' app.json
           rm *.backup
 
       - name: 📦 Install dependencies
