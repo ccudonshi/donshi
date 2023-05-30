@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Modal,
     Text,
-    Platform,
-    TouchableHighlight,
-    TouchableWithoutFeedback,
     View,
     StyleSheet,
-    BackAndroid,
-    Dimensions
 } from 'react-native';
 import TopicItem from './TopicItem';
 import AppHelper from '../helper/AppDBHelper'
-import { Alert, TouchableOpacity, ScrollView, } from 'react-native';
+import { TouchableOpacity, ScrollView, } from 'react-native';
 
 //選擇主題
 export default class ChooseTopicBox extends Modal {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +19,6 @@ export default class ChooseTopicBox extends Modal {
     }
 
     async componentDidMount() {
-        // await (await AppHelper()).getLimitPosts(1,"false",0,5).then(posts => {})
         console.log(this.props.typeId)
         const manager = await AppHelper();
         manager.getTopicsWithType(this.props.typeId.id)
@@ -37,7 +29,6 @@ export default class ChooseTopicBox extends Modal {
 
     render() {
         return (
-
             <Modal
                 style={{margin:0}}
                 animationType="fade"
@@ -91,7 +82,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        // fontSize:50
     },
     openButton: {
         backgroundColor: "#F194FF",

@@ -25,6 +25,8 @@ export default function MentionInputContainer(props) {
     }, [text])
 
     useEffect(() => {
+        if (!gKeyword) return;
+
         const searchUser = async (text)=>{
             const manager = await AppHelper();
             const userList = await manager.searchUser(text)

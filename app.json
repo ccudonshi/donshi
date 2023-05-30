@@ -21,9 +21,6 @@
       "bundleIdentifier": "org.reactnative.donshi",
       "buildNumber": "1.0.0",
       "config": {
-        "googleSignIn": {
-          "reservedClientId": "RESERVED_CLIENT_ID"
-        },
         "googleMapsApiKey": "IOS_GOOGLE_MAPS_API_KEY"
       },
       "infoPlist": {
@@ -39,10 +36,6 @@
       "versionCode": 1,
       "googleServicesFile": "./google-services.json",
       "config": {
-        "googleSignIn": {
-          "apiKey": "ANDROID_API_KEY",
-          "certificateHash": "ANDROID_CERTIFICATE_HASH"
-        },
         "googleMaps": {
           "apiKey": "ANDROID_API_KEY"
         }

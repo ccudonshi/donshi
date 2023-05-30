@@ -57,8 +57,8 @@ export default class Network {
     });
   }
  
-  static errHandler(error) {
-    console.warn('get Error!!!!!!!!')
+  static errHandler(error, location = 'network') {
+    console.error('Got Error At: ', location)
     console.warn('error type: ', typeof error)
     if (error.response) {
       // The request was made and the server responded with a status code
